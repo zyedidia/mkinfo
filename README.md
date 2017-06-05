@@ -21,6 +21,6 @@ Then try running micro again.
 
 # Installation
 
-Just download a binary from the releases page. You can also compile from source if you'd like.
+Just [download a binary](https://github.com/zyedidia/mkinfo/releases) from the releases page. You can also compile from source if you'd like.
 
 Make sure you have curses installed (this should be installed by default in most places).
