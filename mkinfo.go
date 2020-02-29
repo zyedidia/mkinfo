@@ -28,6 +28,7 @@ import (
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/zyedidia/tcell"
+	"github.com/gdamore/tcell/terminfo"
 )
 
 // #include <curses.h>
@@ -123,7 +124,7 @@ func setupterm(name string) error {
 // or the unadorned base name, adding the XTerm specific 24-bit color
 // escapes.  We believe that all 24-bit capable terminals use the same
 // escape sequences, and terminfo has yet to evolve to support this.
-func getinfo(name string) (*tcell.Terminfo, error) {
+func getinfo(name string) (*terminfo.Terminfo, error) {
 	C.noenv()
 	addTrueColor := false
 	if err := setupterm(name); err != nil {
@@ -141,7 +142,7 @@ func getinfo(name string) (*tcell.Terminfo, error) {
 			return nil, err
 		}
 	}
-	t := &tcell.Terminfo{}
+	t := &terminfo.Terminfo{}
 	t.Name = name
 	t.Colors = tigetnum("colors")
 	t.Columns = tigetnum("cols")
@@ -409,7 +410,7 @@ func main() {
 		args = []string{os.Getenv("TERM")}
 	}
 
-	tdata := make(map[string]*tcell.Terminfo)
+	tdata := make(map[string]*terminfo.Terminfo)
 	adata := make(map[string]string)
 	for _, term := range args {
 		if arr := strings.SplitN(term, "=", 2); len(arr) == 2 {
